@@ -1,0 +1,23 @@
+service: ec2-on-off
+provider:
+  name: aws
+  runtime: python3.8
+  region: sa-east-1
+  environment:
+    region: "sa-east-1"
+iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - ec2:DescribeInstances
+        - ec2:DescribeRegions
+        - ec2:StartInstances
+        - ec2:StopInstances
+        - logs:CreateLogGroup
+        - logs:CreateLogStream
+        - logs:PutLogEvents
+      Resource: "*"
+functions:
+  off_instance:
+    handler: handler.off_instance
+  on_instance:
+    handler: handler.on_instance
